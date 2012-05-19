@@ -1,6 +1,6 @@
-*.tmp
+*.swp
 *~
 *.o
 *.a
-test
+vendor_test
 gtest
