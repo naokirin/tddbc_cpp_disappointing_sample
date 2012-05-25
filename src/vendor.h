@@ -1,7 +1,10 @@
 #ifndef __VENDOR_H
 #define __VENDOR_H
 
-#include <stdexcept>
+#include <map>
+#include <vector>
+#include <string>
+#include <list>
 
 namespace AutoVendor {
 
@@ -13,14 +16,26 @@ namespace AutoVendor {
     Ten = 10
   };
 
+  struct Item {
+    unsigned int id;
+    std::string name;
+    unsigned int num;
+    unsigned int value;
+  };
 
-  struct Vendor {
+  class Vendor {
     unsigned int sum;
-
-    Vendor(){};
-
-    void input(const Money money);
+    unsigned int sales;
+    std::map<unsigned int, Item> inventory;
+  public:
+    Vendor();
+    void input(const Money);
     unsigned int getSum() const;
+    const std::map<unsigned int, Item> getInventory() const;
+    void addStock(const Item&);
+    const std::list<unsigned int> getPurchasableList() const;
+    void purchase(unsigned int);
+    unsigned int getSales() const;
   };
 }
 

@@ -52,6 +52,78 @@ TEST_F(VendorTest, Input) {
   EXPECT_EQ(1110u, vendor->getSum());
 }
 
+
+// Test Vendor.inventory
+TEST_F(VendorTest, coke) {
+  auto inventory = vendor->getInventory();
+  ASSERT_EQ(1u, inventory.size());
+  EXPECT_EQ(1u, inventory[1u].id);
+  EXPECT_EQ("coke", inventory[1u].name);
+  EXPECT_EQ(5u, inventory[1u].num);
+  EXPECT_EQ(120u, inventory[1u].value);
+}
+
+TEST_F(VendorTest, addStock) {
+  vendor->addStock({2u, "", 0u, 0u});
+  auto inventory = vendor->getInventory();
+  ASSERT_EQ(2u, inventory.size());
+  EXPECT_EQ(2u, inventory[2u].id);
+  EXPECT_EQ("", inventory[2u].name);
+  EXPECT_EQ(0u, inventory[2u].num);
+  EXPECT_EQ(0u, inventory[2u].value);
+}
+
+
+// vendor.purchase
+TEST_F(VendorTest, purchasable) {
+  vendor->input(Money::Hundored);
+  vendor->input(Money::Fifty);
+  ASSERT_EQ(1u, vendor->getPurchasableList().size());
+  EXPECT_EQ(1u, vendor->getPurchasableList().front());
+}
+
+TEST_F(VendorTest, notPurchasable) {
+  vendor->input(Money::Hundored);
+  EXPECT_TRUE(vendor->getPurchasableList().empty());
+}
+
+TEST_F(VendorTest, purchase) {
+  vendor->input(Money::Thousand);
+  vendor->purchase(1u);
+  auto inventory = vendor->getInventory();
+  EXPECT_EQ(4u, inventory[1u].num);
+  EXPECT_EQ(880u, vendor->getSum());
+}
+
+TEST_F(VendorTest, notPurchase) {
+  vendor->input(Money::Hundored);
+  vendor->purchase(1u);
+  auto inventory = vendor->getInventory();
+  EXPECT_EQ(5u, inventory[1].num);
+  EXPECT_EQ(100u, vendor->getSum());
+}
+
+TEST_F(VendorTest, sales) {
+  vendor->input(Money::Thousand);
+  EXPECT_EQ(0u, vendor->getSales());
+  vendor->purchase(1u);
+  EXPECT_EQ(120u, vendor->getSales());
+  vendor->purchase(1u);
+  EXPECT_EQ(240u, vendor->getSales());
+}
+
+TEST_F(VendorTest, nothingInventory) {
+  vendor->input(Money::Thousand);
+  vendor->purchase(1u); vendor->purchase(1u); vendor->purchase(1u); vendor->purchase(1u); vendor->purchase(1u);
+  EXPECT_EQ(400u, vendor->getSum());
+  EXPECT_EQ(600u, vendor->getSales());
+  vendor->purchase(1u);
+  EXPECT_EQ(400u, vendor->getSum());
+  EXPECT_EQ(600u, vendor->getSales());
+}
+
+
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
