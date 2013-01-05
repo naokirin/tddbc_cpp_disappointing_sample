@@ -21,35 +21,35 @@ protected:
 // Test Vendor.input()
 TEST_F(VendorTest, Input1000) {
   vendor->input(Money::Thousand);
-  EXPECT_EQ(1000u, vendor->getSum());
+  EXPECT_EQ(1000u, vendor->getTotalAmount());
 }
 
 TEST_F(VendorTest, Input500) {
   vendor->input(Money::FiveHundored);
-  EXPECT_EQ(500u, vendor->getSum());
+  EXPECT_EQ(500u, vendor->getTotalAmount());
 }
 
 TEST_F(VendorTest, Input100) {
   vendor->input(Money::Hundored);
-  EXPECT_EQ(100u, vendor->getSum());
+  EXPECT_EQ(100u, vendor->getTotalAmount());
 }
 
 TEST_F(VendorTest, Input50) {
   vendor->input(Money::Fifty);
-  EXPECT_EQ(50u, vendor->getSum());
+  EXPECT_EQ(50u, vendor->getTotalAmount());
 }
 
 TEST_F(VendorTest, Input10) {
   vendor->input(Money::Ten);
-  EXPECT_EQ(10u, vendor->getSum());
+  EXPECT_EQ(10u, vendor->getTotalAmount());
 }
 
 TEST_F(VendorTest, Input) {
   vendor->input(Money::Hundored);
   vendor->input(Money::Ten);
-  EXPECT_EQ(110u, vendor->getSum());
+  EXPECT_EQ(110u, vendor->getTotalAmount());
   vendor->input(Money::Thousand);
-  EXPECT_EQ(1110u, vendor->getSum());
+  EXPECT_EQ(1110u, vendor->getTotalAmount());
 }
 
 
@@ -92,7 +92,7 @@ TEST_F(VendorTest, purchase) {
   vendor->purchase(1u);
   auto inventory = vendor->getInventory();
   EXPECT_EQ(4u, inventory[1u].num);
-  EXPECT_EQ(880u, vendor->getSum());
+  EXPECT_EQ(880u, vendor->getTotalAmount());
 }
 
 TEST_F(VendorTest, notPurchase) {
@@ -100,26 +100,26 @@ TEST_F(VendorTest, notPurchase) {
   vendor->purchase(1u);
   auto inventory = vendor->getInventory();
   EXPECT_EQ(5u, inventory[1].num);
-  EXPECT_EQ(100u, vendor->getSum());
+  EXPECT_EQ(100u, vendor->getTotalAmount());
 }
 
-TEST_F(VendorTest, sales) {
+TEST_F(VendorTest, saleAmount) {
   vendor->input(Money::Thousand);
-  EXPECT_EQ(0u, vendor->getSales());
+  EXPECT_EQ(0u, vendor->getSaleAmount());
   vendor->purchase(1u);
-  EXPECT_EQ(120u, vendor->getSales());
+  EXPECT_EQ(120u, vendor->getSaleAmount());
   vendor->purchase(1u);
-  EXPECT_EQ(240u, vendor->getSales());
+  EXPECT_EQ(240u, vendor->getSaleAmount());
 }
 
 TEST_F(VendorTest, nothingInventory) {
   vendor->input(Money::Thousand);
   vendor->purchase(1u); vendor->purchase(1u); vendor->purchase(1u); vendor->purchase(1u); vendor->purchase(1u);
-  EXPECT_EQ(400u, vendor->getSum());
-  EXPECT_EQ(600u, vendor->getSales());
+  EXPECT_EQ(400u, vendor->getTotalAmount());
+  EXPECT_EQ(600u, vendor->getSaleAmount());
   vendor->purchase(1u);
-  EXPECT_EQ(400u, vendor->getSum());
-  EXPECT_EQ(600u, vendor->getSales());
+  EXPECT_EQ(400u, vendor->getTotalAmount());
+  EXPECT_EQ(600u, vendor->getSaleAmount());
 }
 
 

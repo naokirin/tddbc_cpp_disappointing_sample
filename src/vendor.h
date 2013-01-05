@@ -26,18 +26,18 @@ namespace AutoVendor {
   using InvetoryType = std::map<unsigned int, Item>;
 
   class Vendor {
-    unsigned int sum;
-    unsigned int sales;
+    unsigned int totalAmount;
+    unsigned int saleAmount;
     InvetoryType inventory;
   public:
     Vendor();
     void input(const Money);
-    unsigned int getSum() const;
+    unsigned int getTotalAmount() const;
     const InvetoryType getInventory() const;
     void addStock(const Item&);
     const std::list<unsigned int> getPurchasableList() const;
     void purchase(unsigned int);
-    unsigned int getSales() const;
+    unsigned int getSaleAmount() const;
   };
 }
 
