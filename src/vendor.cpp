@@ -31,10 +31,17 @@ namespace AutoVendor {
   }
 
   void Vendor::purchase(unsigned int id) {
-    auto itr = inventory.find(id);
-    if (itr != inventory.end()
-        && itr->second.value <= totalAmount
-        && itr->second.num != 0) {
+
+    auto purchasable_ =
+        [&](InventoryType::value_type item) {
+            return
+              item.first == id
+              && item.second.value <= totalAmount
+              && item.second.num != 0;
+          };
+
+    auto itr = std::find_if(inventory.begin(), inventory.end(), purchasable_);
+    if (itr != inventory.end()) {
       itr->second.num -= 1;
       totalAmount -= itr->second.value;
       saleAmount += itr->second.value;
