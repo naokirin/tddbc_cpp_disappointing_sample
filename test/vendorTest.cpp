@@ -56,21 +56,21 @@ TEST_F(VendorTest, Input) {
 // Test Vendor.inventory
 TEST_F(VendorTest, coke) {
   auto inventory = vendor->getInventory();
-  ASSERT_EQ(1u, inventory.size());
+  ASSERT_EQ(3u, inventory.size());
   EXPECT_EQ(1u, inventory[1u].id);
-  EXPECT_EQ("coke", inventory[1u].name);
+  EXPECT_EQ("コーラ", inventory[1u].name);
   EXPECT_EQ(5u, inventory[1u].num);
   EXPECT_EQ(120u, inventory[1u].value);
 }
 
 TEST_F(VendorTest, addStock) {
-  vendor->addStock({2u, "", 0u, 0u});
+  vendor->addStock({10u, "", 0u, 0u});
   auto inventory = vendor->getInventory();
-  ASSERT_EQ(2u, inventory.size());
-  EXPECT_EQ(2u, inventory[2u].id);
-  EXPECT_EQ("", inventory[2u].name);
-  EXPECT_EQ(0u, inventory[2u].num);
-  EXPECT_EQ(0u, inventory[2u].value);
+  ASSERT_EQ(4u, inventory.size());
+  EXPECT_EQ(10u, inventory[10u].id);
+  EXPECT_EQ("", inventory[10u].name);
+  EXPECT_EQ(0u, inventory[10u].num);
+  EXPECT_EQ(0u, inventory[10u].value);
 }
 
 
@@ -78,12 +78,13 @@ TEST_F(VendorTest, addStock) {
 TEST_F(VendorTest, purchasable) {
   vendor->input(Money::Hundored);
   vendor->input(Money::Fifty);
-  ASSERT_EQ(1u, vendor->getPurchasableList().size());
+  ASSERT_EQ(2u, vendor->getPurchasableList().size());
   EXPECT_EQ(1u, vendor->getPurchasableList().front());
+  EXPECT_EQ(3u, vendor->getPurchasableList().back());
 }
 
 TEST_F(VendorTest, notPurchasable) {
-  vendor->input(Money::Hundored);
+  vendor->input(Money::Ten);
   EXPECT_TRUE(vendor->getPurchasableList().empty());
 }
 
@@ -101,6 +102,7 @@ TEST_F(VendorTest, notPurchase) {
   auto inventory = vendor->getInventory();
   EXPECT_EQ(5u, inventory[1u].num);
   EXPECT_EQ(100u, vendor->getTotalAmount());
+  EXPECT_EQ(0u, vendor->getSaleAmount());
 }
 
 TEST_F(VendorTest, saleAmount) {

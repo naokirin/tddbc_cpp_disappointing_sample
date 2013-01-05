@@ -4,7 +4,9 @@
 namespace AutoVendor {
 
   Vendor::Vendor() : totalAmount(0u), saleAmount(0u) {
-    inventory[1u] = {1u, "coke", 5u, 120u};
+    addStock({1u, "コーラ", 5u, 120u});
+    addStock({2u, "レッドブル", 5u, 200u});
+    addStock({3u, "水", 5u, 100u});
   }
 
   void Vendor::input(const Money money) {
