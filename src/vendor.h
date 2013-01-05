@@ -1,5 +1,4 @@
-#ifndef __VENDOR_H
-#define __VENDOR_H
+#pragma once
 
 #include <map>
 #include <vector>
@@ -39,4 +38,3 @@ namespace AutoVendor {
   };
 }
 
-#endif // __VENDOR_H
