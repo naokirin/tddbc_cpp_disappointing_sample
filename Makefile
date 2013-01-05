@@ -1,6 +1,6 @@
 GTEST_DIR = ./gtest
 USER_DIR = ./
-CPPFLAGS += -I$(GTEST_DIR)/include -std=c++0x
+CPPFLAGS += -I$(GTEST_DIR)/include -std=c++11
 CXXFLAGS += -g -Wall -Wextra
 TESTS = vendor_test
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h $(GTEST_DIR)/include/gtest/internal/*.h
