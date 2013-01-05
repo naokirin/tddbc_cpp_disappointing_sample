@@ -5,7 +5,7 @@ namespace AutoVendor {
   Vendor::Vendor() {
     sum = 0;
     sales = 0;
-    inventory.insert(std::map<unsigned int, Item>::value_type(1, {1u, "coke", 5u, 120u}));
+    inventory.insert(InvetoryType::value_type(1, {1u, "coke", 5u, 120u}));
   }
 
   void Vendor::input(const Money money) {
@@ -16,12 +16,12 @@ namespace AutoVendor {
     return sum;
   }
 
-  const std::map<unsigned int, Item> Vendor::getInventory() const  {
+  const InvetoryType Vendor::getInventory() const  {
     return inventory;
   }
 
   void Vendor::addStock(const Item& item) {
-    inventory.insert(std::pair<unsigned int, Item>(item.id, item));
+    inventory.insert(InvetoryType::value_type(item.id, item));
   }
 
   const std::list<unsigned int> Vendor::getPurchasableList() const {
