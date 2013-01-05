@@ -2,9 +2,7 @@
 
 namespace AutoVendor {
 
-  Vendor::Vendor() {
-    totalAmount = 0;
-    saleAmount = 0;
+  Vendor::Vendor() : totalAmount(0), saleAmount(0) {
     inventory.insert(InvetoryType::value_type(1, {1u, "coke", 5u, 120u}));
   }
 
