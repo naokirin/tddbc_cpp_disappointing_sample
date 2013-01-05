@@ -7,11 +7,11 @@
 namespace AutoVendor {
 
   enum class Money : unsigned int {
-    Thousand = 1000,
-    FiveHundored = 500,
-    Hundored = 100,
-    Fifty = 50,
-    Ten = 10
+    Thousand = 1000u,
+    FiveHundored = 500u,
+    Hundored = 100u,
+    Fifty = 50u,
+    Ten = 10u
   };
 
   struct Item {
@@ -22,17 +22,17 @@ namespace AutoVendor {
   };
 
 
-  using InvetoryType = std::map<unsigned int, Item>;
+  using InventoryType = std::map<unsigned int, Item>;
 
   class Vendor {
     unsigned int totalAmount;
     unsigned int saleAmount;
-    InvetoryType inventory;
+    InventoryType inventory;
   public:
     Vendor();
     void input(const Money);
     unsigned int getTotalAmount() const;
-    const InvetoryType getInventory() const;
+    const InventoryType getInventory() const;
     void addStock(const Item&);
     const std::list<unsigned int> getPurchasableList() const;
     void purchase(unsigned int);

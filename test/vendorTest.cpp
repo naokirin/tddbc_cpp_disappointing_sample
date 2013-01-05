@@ -14,8 +14,8 @@ protected:
 
   VendorTest() {vendor = std::unique_ptr<Vendor>(new Vendor());}
 
-  virtual void SetUp() { std::cout << "run SetUp()" << std::endl; }
-  virtual void TearDown() { std::cout << "run TearDown()" << std::endl; }
+  virtual void SetUp() {}
+  virtual void TearDown() {}
 };
 
 // Test Vendor.input()
@@ -99,7 +99,7 @@ TEST_F(VendorTest, notPurchase) {
   vendor->input(Money::Hundored);
   vendor->purchase(1u);
   auto inventory = vendor->getInventory();
-  EXPECT_EQ(5u, inventory[1].num);
+  EXPECT_EQ(5u, inventory[1u].num);
   EXPECT_EQ(100u, vendor->getTotalAmount());
 }
 
