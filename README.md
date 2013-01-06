@@ -6,10 +6,12 @@
 
 - このリポジトリには C++11 成分が含まれています: C++11が使える環境が必要.
 
+- このリポジトリには Boost 成分が含まれています: Boostが使える環境が必要.
+
 - このリポジトリには gtest 成分が含まれています: gtestをダウンロードしようね!  
 URL: http://code.google.com/p/googletest/ 
 
-- Mac OS X 上の g++ 4.7.2 と gtest 1.6.0 で動作確認してます.
+- Mac OS X 上の g++ 4.7.2 と boost1.52.0 と gtest 1.6.0 で動作確認してます.
 
 ## このリポジトリを使いたい人へ
 - Makefile の CXX を 適宜書き換よう!
@@ -17,7 +19,7 @@ URL: http://code.google.com/p/googletest/
 - リポジトリのディレクトリのトップに落としてきたgtestのディレクトリを"gtest"と言う名前で置こう!
 
 ## Windows上のMinGWでg++を使うお方へ
-- Makefile の CPPFLAGS の -std=c++0x を -std=gnu++0x に書き換えよう!
+- Makefile の CPPFLAGS の -std=c++11 を -std=gnu++11 に書き換えよう!
 
 - .gitignore に *.exe を追加しよう!
 
