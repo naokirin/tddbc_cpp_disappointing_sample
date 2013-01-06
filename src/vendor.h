@@ -25,6 +25,12 @@ namespace AutoVendor {
 
   using InventoryType = std::map<unsigned int, Item>;
 
+  static const std::list<Item> initialInventory = {
+    {1u, "コーラ", 5u, 120u},
+    {2u, "レッドブル", 5u, 200u},
+    {3u, "水", 5u, 100u}
+  };
+
   class Vendor {
     unsigned int totalAmount;
     unsigned int saleAmount;
