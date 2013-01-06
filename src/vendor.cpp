@@ -34,7 +34,7 @@ namespace AutoVendor {
     return purchasableList;
   }
 
-  void Vendor::purchase(unsigned int id) {
+  boost::optional<unsigned int> Vendor::purchase(unsigned int id) {
 
     auto purchasable_ =
         [&](const InventoryType::value_type& item) {
@@ -49,7 +49,10 @@ namespace AutoVendor {
       itr->second.num -= 1u;
       totalAmount -= itr->second.value;
       saleAmount += itr->second.value;
+
+      return totalAmount;
     }
+      return boost::none;
   }
 
   unsigned int Vendor::getSaleAmount() const {

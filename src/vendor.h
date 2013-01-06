@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <list>
+#include <boost/optional.hpp>
 
 namespace AutoVendor {
 
@@ -35,7 +36,7 @@ namespace AutoVendor {
     const InventoryType getInventory() const;
     void addStock(const Item&);
     const std::list<unsigned int> getPurchasableList() const;
-    void purchase(unsigned int);
+    boost::optional<unsigned int> purchase(unsigned int);
     unsigned int getSaleAmount() const;
   };
 }

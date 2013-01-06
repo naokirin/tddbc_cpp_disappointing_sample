@@ -90,16 +90,26 @@ TEST_F(VendorTest, notPurchasable) {
 
 TEST_F(VendorTest, purchase) {
   vendor->input(Money::Thousand);
-  vendor->purchase(1u);
+  auto actual = vendor->purchase(1u);
   auto inventory = vendor->getInventory();
+  ASSERT_TRUE(actual);
   EXPECT_EQ(4u, inventory[1u].num);
+  EXPECT_EQ(880u, actual.get());
   EXPECT_EQ(880u, vendor->getTotalAmount());
+}
+
+TEST_F(VendorTest, purchaseAndGetZeroChange) {
+  vendor->input(Money::Hundored);
+  auto actual = vendor->purchase(3u);
+  ASSERT_TRUE(actual);
+  EXPECT_EQ(0u, actual.get());
 }
 
 TEST_F(VendorTest, notPurchase) {
   vendor->input(Money::Hundored);
-  vendor->purchase(1u);
+  auto actual = vendor->purchase(1u);
   auto inventory = vendor->getInventory();
+  ASSERT_FALSE(actual);
   EXPECT_EQ(5u, inventory[1u].num);
   EXPECT_EQ(100u, vendor->getTotalAmount());
   EXPECT_EQ(0u, vendor->getSaleAmount());
@@ -119,11 +129,10 @@ TEST_F(VendorTest, nothingInventory) {
   vendor->purchase(1u); vendor->purchase(1u); vendor->purchase(1u); vendor->purchase(1u); vendor->purchase(1u);
   EXPECT_EQ(400u, vendor->getTotalAmount());
   EXPECT_EQ(600u, vendor->getSaleAmount());
-  vendor->purchase(1u);
+  ASSERT_FALSE(vendor->purchase(1u));
   EXPECT_EQ(400u, vendor->getTotalAmount());
   EXPECT_EQ(600u, vendor->getSaleAmount());
 }
-
 
 
 int main(int argc, char **argv) {
